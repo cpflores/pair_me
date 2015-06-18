@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'users#index'
+  root 'home#index'
   
   resources :users do
     member do
@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       get 'matches'
     end
   end
+
+  get 'auth/facebook/callback', to: "sessions#create"
 
   # get 'users/index'
 

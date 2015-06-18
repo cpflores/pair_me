@@ -1,0 +1,30 @@
+<div class="bg-dark"></div>
+<div class="home-information">
+  <h1 class="slogan">Find your pair. Simple as a swipe.</h1>
+  
+  <%= link_to "auth/facebook", class: "btn btn-social btn-lg btn-facebook" do %>
+    <i class="fa fa-facebook"></i> Sign in with Facebook
+  <% end %>
+  
+  <br />
+  <br />
+</div>
+
+<script type="text/javascript">
+  jQuery(function($) {
+   
+    $.supersized({
+      slide_interval  : 4000,
+      transition      : 1,
+      transition_speed: 700,
+      slide_links     : 'blank',
+
+      slides: [
+        {image: 'assets/stars.jpeg'},
+        {image: 'assets/tree.jpeg'},
+        {image: 'assets/wolf.jpeg'}
+      ]
+    });
+
+  });
+</script>
