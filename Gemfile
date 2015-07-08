@@ -27,6 +27,7 @@ gem 'bootstrap-sass', '~> 3.3.4'
 gem 'autoprefixer-rails', '~> 5.2.0'
 gem 'font-awesome-sass', '~> 4.3.2.1'
 gem 'omniauth-facebook', '~> 2.0.1'
+gem 'dotenv-rails', '~> 2.0.2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
