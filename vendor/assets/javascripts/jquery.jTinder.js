@@ -62,41 +62,49 @@
 			panes.eq(current_pane).hide();
 			current_pane = index;
 
-			var li_count = $("#tinderslide > ul > li").length
 
+			var li_count = $("#tinderslide > ul > li").length
+			//Custom -> Add more elements if reaching the end!
 			if (li_count < 3) {
 				
 				if (li_count == 0) {
-
+					// make an ajax call passing along our last user id
 					$.ajax({
-
+						// make a get request to the server
 						type: "GET",
+						// get the url from the href attribute of our link
 						url: "/users", 
+						// the response will be a script
 						datatype: "script",
 
+						// upon success
 						success: function(e) {
-							//
+							$(".spinner").hide(); // Do something on success!
 						}
 
 					});
 
 				} else {
 
-				var last_id = $("tinderslide > ul > li").first().attr("id")
+				var last_id = $("tinderslide > ul > li").first().attr("id") //panes.eq(current_pane).attr("id");
 
+					// make an ajax call passing along our last user id
 					$.ajax({
 
+						// make a GET request to the server
 						type: "GET",
+						// get the url from the href attribute of our link
 						url: "/users", 
-
+						// send the last id to our rails app
 						data: {
 							id: last_id
 						},
-
+						// the response will be a script
 						datatype: "script",
 
+						// upon success
 						success: function(e) {
-							//
+							$(".spinner").hide(); // Do something on success!
 						}
 
 					});
