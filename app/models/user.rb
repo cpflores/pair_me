@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+	has_many :friendships, dependent: :destroy
+	has_many :inverse_friednships, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
+
 	has_attached_file :avatar, 
 										:storage => :s3, 
 										:style => { :medium => "370x370", :thumb => "100x100" }
@@ -23,6 +26,25 @@ class User < ActiveRecord::Base
 			location: auth['info']['location'],
 			bio: auth['extra']['raw_info']['bio']
 		)
+	end
+
+	# Friendship Methods
+	def request_match(user2)
+		self.friendships.create(friend: user2)
+	end
+
+	def accept_match(user2)
+		self.friendships.where(friend: user2).first.update_attribute(:state, "ACTIVE")
+	end
+
+	def remove_match(user2)
+		inverse_friednship = inverse_friednships.where(user:id: user2).first
+
+		if inverse_friednship
+			self.inverse_friednships.where(user_id: user2).first.destroy
+		else
+			self.friendships.where(friend_id: user2).frist.destroy
+		end
 	end
 
 	private
