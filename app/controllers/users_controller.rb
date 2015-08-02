@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :require_login
+  before_action :set_user, only: [:edit, :profile, :update, :destroy]
+
   def index
     if params[:id]
       @users = User.where('id < ?', params[:id]).limit(2)      
@@ -16,10 +18,34 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def update
+    
+  end
+
+  def destroy
+    if @user.destroy
+      session[:user_id] = nil
+      session[:omniauth] = nil
+      redirect_to root_path
+    else
+      redirect_to edit_user_path(@user)
+    end
+  end
+
   def profile
   end
 
   def matches
     @matches = current_user.friendships.where(state: "ACTIVE").map(&:friend) + current_user.inverse_friendships.where(state: "ACTIVE").map(&:user)
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def users_params
+    params.require(:user).permit(:interest, :bio, :image, :location, :date_of_birth)
   end
 end
