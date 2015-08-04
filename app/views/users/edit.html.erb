@@ -1,4 +1,4 @@
-<%= simple_form_for(@user, url: url_for(:action => 'update', controller: => 'users'), html: {multipart: true}) do |f| %>
+<%= simple_form_for(@user, url: url_for(:action => 'update', :controller => 'users'), html: {multipart: true}) do |f| %>
 
 <div class="container">
   <h4 class="text-uppercase"><small>Interested in</small></h4>
@@ -18,7 +18,7 @@
   <%= f.input :interest, as: :hidden, label: false %>
 
   <h4 class="text-uppercase"><small>Profile Description</small></h4>
-  <%= f.input :bio, as: :text, class: "form-control", label: false, input_html => { :rows => 5 } %>
+  <%= f.input :bio, as: :text, class: "form-control", label: false, :input_html => { :rows => 5 } %>
   
   <h4 class="text-uppercase"><small>City</small></h4>
   <%= f.input :location, class: "form-control", label: false %>
@@ -55,6 +55,8 @@
 
 <script type="text/javascript">
   $('.gender').click(function(){
-    $("#dropdownMenu1").text($(this).text());
+    $("#dropdownMenu1").text( $(this).text() );
+    $("#dropdownMenu1").append('<span class="caret"></span>');
+    $("#user_interest").val( $(this).text() );
   });
 </script>

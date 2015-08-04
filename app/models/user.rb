@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
 	end
 
 	def remove_match(user2)
-		inverse_friednship = inverse_friednships.where(user:id: user2).first
+		inverse_friednship = inverse_friednships.where(user_id: user2).first
 
 		if inverse_friednship
 			self.inverse_friednships.where(user_id: user2).first.destroy

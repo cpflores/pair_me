@@ -19,7 +19,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    
+    if @user.update(users_params)
+      respond_to do |format|
+        format.html { redirect_to users_path }
+      end
+    else
+      redirect_to edit_user_path(@user)
+    end
   end
 
   def destroy
