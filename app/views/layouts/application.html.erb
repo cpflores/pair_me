@@ -56,6 +56,13 @@
 <%= yield %>
 
 <script type="text/javascript">
+  // Allow to load more
+  var load_more = true;
+  // Hide Spinner
+  $(".spinner").hide();
+  // Tooltip
+  $('[data-toggle="tooltip"]').tooltip();
+
   /**
   * Set button action to trigger jTinder like & dislike.
   */
