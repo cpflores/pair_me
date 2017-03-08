@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
 	has_many :friendships, dependent: :destroy
-	has_many :inverse_friednships, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
+	has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
 
-	has_attached_file :avatar, 
-										:storage => :s3, 
+	has_attached_file :avatar,
+										:storage => :s3,
 										:style => { :medium => "370x370", :thumb => "100x100" }
 
 	validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
@@ -33,15 +33,15 @@ class User < ActiveRecord::Base
 		self.friendships.create(friend: user2)
 	end
 
-	def accept_match(user2)
-		self.friendships.where(friend: user2).first.update_attribute(:state, "ACTIVE")
+	def accept_friendship
+		self.update_attributes(state: "active", friended_at: Time.now)
 	end
 
 	def remove_match(user2)
-		inverse_friednship = inverse_friednships.where(user_id: user2).first
+		inverse_friendship = inverse_friendships.where(user_id: user2).first
 
-		if inverse_friednship
-			self.inverse_friednships.where(user_id: user2).first.destroy
+		if inverse_friendship
+			self.inverse_friendships.where(user_id: user2).first.destroy
 		else
 			self.friendships.where(friend_id: user2).frist.destroy
 		end

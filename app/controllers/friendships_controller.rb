@@ -9,7 +9,7 @@ class FriendshipsController < ApplicationController
 			@friend.accept_match(current_user)
 			@match = true
 		else
-			current_user.request_match(@friend)
+			@friendship = current_user.request_match(@friend)
 		end
 
 		respond_to do |format|
@@ -18,7 +18,8 @@ class FriendshipsController < ApplicationController
 	end
 
 	def destroy
-		current_user.remove_match(@friend)
+		@friendship = current_user.remove_match(@friend)
+		
 		respond_to do |format|
 			format.html { redirect_to users_path }
 		end

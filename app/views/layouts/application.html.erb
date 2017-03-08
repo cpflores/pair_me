@@ -6,10 +6,9 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
-
   <% if current_user %>
-
     <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
       <ul class="nav navmenu-nav">
         <li class="active"><a href="#"><i class="fa fa-users"></i> Discover</a></li>
@@ -24,7 +23,7 @@
     </nav>
 
     <div class="navbar navbar-default navbar-fixed-top">
-    
+
       <button type="button" class="navbar-toggle button-nav" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
         <i class="fa fa-cog"></i>
       </button>
@@ -34,7 +33,7 @@
       </button>
     </div>
 
-  <% else %>  
+  <% else %>
 
     <a class="navbar-brand" href="#">
       <%= image_tag "#", alt: "PairMe Logo", class: "logo-brand" %>
@@ -45,9 +44,19 @@
 <%= yield %>
 
 <script type="text/javascript">
-  
+  /**
+  * Set button action to trigger jTinder like & dislike.
+  */
+
+  $('.actions .like, .actions .dislike').click(function(e){
+    e.preventDefault();
+    $("#tinderslide").jTinder($(this).attr('class'));
+  });
+
+  $("#tinderslide > ul li").tsort({attr:"id"});
+
   $("#tinderslide").jTinder({
-      
+
       onDislike: function (item) {
           //alert('Dislike image ' + (item.index()+1));
       },
@@ -55,7 +64,7 @@
           var myId = $("#tinderslide > ul li").last().attr("id");
           $("#user_" + myId)[0].click();
       },
-      
+
       animationRevertSpeed: 200,
       animationSpeed: 400,
       threshold: 1,
