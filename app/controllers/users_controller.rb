@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_login
-  before_action :set_user, only: [:edit, :profile, :update, :destroy, :get_email]
+  before_action :set_user, only: [:edit, :profile, :update, :destroy, :get_email, :matches]
 
   def index
     if params[:id]
@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    authorize! :update, @user
   end
 
   def update
@@ -42,6 +43,7 @@ class UsersController < ApplicationController
   end
 
   def matches
+    authorize! :read, @user
     @matches = current_user.friendships.where(state: "ACTIVE").map(&:friend) + current_user.inverse_friendships.where(state: "ACTIVE").map(&:user)
   end
 
