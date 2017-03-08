@@ -32,6 +32,7 @@ gem 'paperclip', '~> 4.3.0'
 gem 'aws-sdk', ' < 2'
 gem 'simple_form', '~> 3.1.0'
 gem 'cancancan'
+gem 'data-confirm-modal', '~> 1.3'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
