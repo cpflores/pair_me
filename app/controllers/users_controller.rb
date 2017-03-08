@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def index
     if params[:id]
-      @users = User.where('id < ?', params[:id]).limit(2)      
+      @users = User.where('id < ?', params[:id]).limit(2)
     else
       @users = User.all.limit(2)
     end
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(users_params)
+    if @user.update(user_params)
       respond_to do |format|
         format.html { redirect_to users_path }
       end
@@ -30,9 +30,9 @@ class UsersController < ApplicationController
 
   def destroy
     if @user.destroy
+      redirect_to root_path
       session[:user_id] = nil
       session[:omniauth] = nil
-      redirect_to root_path
     else
       redirect_to edit_user_path(@user)
     end
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def users_params
+  def user_params
     params.require(:user).permit(:interest, :bio, :image, :location, :date_of_birth)
   end
 end
