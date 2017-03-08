@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
-  
+
   resources :users do
     member do
       get 'profile'
@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   post    'create_friendship' => "friendships#create"
   delete  'delete_friendship' => "friendships#destroy"
+
+  get 'matches/get_email' => "users#get_email"
 
   # get 'users/index'
 
